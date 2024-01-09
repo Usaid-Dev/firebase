@@ -1,15 +1,15 @@
-import 'package:firebase/Ui/auth/signup_screen.dart';
+import 'package:firebase/Ui/auth/login_screen.dart';
 import 'package:firebase/widgets/round_button.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formkey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
@@ -29,9 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
-        automaticallyImplyLeading: false,
         title: const Text(
-          'Login',
+          'SignUp',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -99,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 50,
             ),
             RoundButton(
-              title: "Login",
+              title: "SignUp",
               onTap: () {
                 if (_formkey.currentState!.validate()) {}
               },
@@ -110,17 +109,17 @@ class _LoginScreenState extends State<LoginScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't have an account ?"),
+                const Text("Already have an account ?"),
                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignUpScreen(),
+                        builder: (context) => const LoginScreen(),
                       ),
                     );
                   },
-                  child: const Text('Sign Up'),
+                  child: const Text('Login'),
                 )
               ],
             )
