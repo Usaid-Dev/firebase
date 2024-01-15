@@ -17,7 +17,7 @@ class _PostScreenState extends State<PostScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Post Screen'),
+        title: const Text('Post Screen'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -26,16 +26,16 @@ class _PostScreenState extends State<PostScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (context) => const LoginScreen(),
                   ),
                 );
               }).onError((error, stackTrace) {
                 Utils().toastMessage(error.toString());
               });
             },
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           )
         ],
