@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
-  const VerifyCodeScreen({super.key});
+  const VerifyCodeScreen({
+    super.key,
+    required this.verificationId,
+  });
+
+  final String verificationId;
 
   @override
   State<VerifyCodeScreen> createState() => _VerifyCodeScreenState();
