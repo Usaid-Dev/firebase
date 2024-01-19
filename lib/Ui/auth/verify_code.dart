@@ -1,4 +1,4 @@
-import 'package:firebase/utils/utils.dart';
+import 'package:firebase/Ui/posts/post_screen.dart';
 import 'package:firebase/widgets/round_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class VerifyCodeScreen extends StatefulWidget {
 class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   bool loading = false;
 
-  final phoneNumberController = TextEditingController();
+  final verificationCodeController = TextEditingController();
 
   final auth = FirebaseAuth.instance;
 
@@ -43,7 +43,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
               height: 80,
             ),
             TextFormField(
-              controller: phoneNumberController,
+              controller: verificationCodeController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(hintText: '6 digit code'),
             ),
@@ -53,7 +53,28 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
             RoundButton(
               title: 'Verify',
               loading: loading,
-              onTap: () {},
+              onTap: () async {
+                setState(() {
+                  loading = true;
+                });
+                final crendital = PhoneAuthProvider.credential(
+                  verificationId: widget.verificationId,
+                  smsCode: verificationCodeController.text.toString(),
+                );
+                try {
+                  await auth.signInWithCredential(crendital);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PostScreen(),
+                    ),
+                  );
+                } catch (e) {
+                  setState(() {
+                    loading = true;
+                  });
+                }
+              },
             ),
           ],
         ),
