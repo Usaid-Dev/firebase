@@ -1,4 +1,5 @@
 import 'package:firebase/Ui/auth/login_screen.dart';
+import 'package:firebase/Ui/posts/post_screen.dart';
 import 'package:firebase/utils/utils.dart';
 import 'package:firebase/widgets/round_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -131,6 +132,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 if (_formkey.currentState!.validate()) {
                   signUp();
                 }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PostScreen(),
+                  ),
+                );
               },
             ),
             const SizedBox(
