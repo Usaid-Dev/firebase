@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:firebase/Ui/auth/login_screen.dart';
 import 'package:firebase/Ui/posts/add_posts.dart';
 import 'package:firebase/utils/utils.dart';
@@ -51,19 +49,48 @@ class _PostScreenState extends State<PostScreen> {
       body: Column(
         children: [
           Expanded(
-            child: FirebaseAnimatedList(
-                defaultChild: Center(
-                    child: Text(
-                  'Loading',
-                  style: TextStyle(fontSize: 50),
-                )),
-                query: ref,
-                itemBuilder: (context, snapshot, animation, index) {
-                  return ListTile(
-                    title: Text(snapshot.child('title').value.toString()),
+            child: StreamBuilder(
+              stream: ref.onValue,
+              builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
+                if (!snapshot.hasData) {
+                  return const CircularProgressIndicator();
+                } else {
+                  Map<dynamic, dynamic> map =
+                      snapshot.data!.snapshot.value as dynamic;
+                  List<dynamic> list = [];
+                  list.clear();
+                  list = map.values.toList();
+                  return ListView.builder(
+                    itemCount: snapshot.data!.snapshot.children.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(list[index]['title']),
+                      );
+                    },
                   );
-                }),
-          )
+                }
+              },
+            ),
+          ),
+          // Expanded(
+          //   child: FirebaseAnimatedList(
+          //       defaultChild: const Center(
+          //           child: Text(
+          //         'Loading',
+          //         style: TextStyle(fontSize: 50),
+          //       )),
+          //       query: ref,
+          //       itemBuilder: (context, snapshot, animation, index) {
+          //         return ListTile(
+          //           title: Text(
+          //             snapshot.child('title').value.toString(),
+          //           ),
+          //           subtitle: Text(
+          //             snapshot.child('id').value.toString(),
+          //           ),
+          //         );
+          //       }),
+          // )
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -71,11 +98,11 @@ class _PostScreenState extends State<PostScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddPostScreen(),
+              builder: (context) => const AddPostScreen(),
             ),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

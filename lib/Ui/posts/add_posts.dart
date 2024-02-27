@@ -21,23 +21,23 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Post Screen'),
+        title: const Text('Add Post Screen'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextFormField(
               controller: postController,
               maxLines: 4,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: "Write Your Thoughts",
                   border: OutlineInputBorder()),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             RoundButton(
