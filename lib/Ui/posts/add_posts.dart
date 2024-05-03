@@ -44,6 +44,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 title: "Add",
                 loading: loading,
                 onTap: () {
+                  Navigator.pop(context);
                   setState(() {
                     loading = true;
                   });
