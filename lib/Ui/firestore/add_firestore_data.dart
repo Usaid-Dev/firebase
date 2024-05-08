@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase/widgets/round_button.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class AddFireStoreData extends StatefulWidget {
   const AddFireStoreData({super.key});
@@ -14,6 +14,8 @@ class _AddFireStoreDataState extends State<AddFireStoreData> {
   final postController = TextEditingController();
 
   bool loading = false;
+
+  final firestore = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +44,24 @@ class _AddFireStoreDataState extends State<AddFireStoreData> {
                 title: "Add",
                 loading: loading,
                 onTap: () {
-                  Navigator.pop(context);
                   setState(() {
                     loading = true;
+                  });
+                  String id = DateTime.now().millisecondsSinceEpoch.toString();
+                  firestore.doc(id).set({
+                    'title': postController.text.toString(),
+                    'id': id
+                  }).then((value) {
+                    Navigator.pop(context);
+                    setState(() {
+                      loading = false;
+                    });
+                    Utils().toastMessage('post added');
+                  }).onError((error, stackTrace) {
+                    setState(() {
+                      loading = false;
+                    });
+                    Utils().toastMessage(error.toString());
                   });
                 })
           ],

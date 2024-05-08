@@ -44,7 +44,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 title: "Add",
                 loading: loading,
                 onTap: () {
-                  Navigator.pop(context);
                   setState(() {
                     loading = true;
                   });
@@ -55,6 +54,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     'title': postController.text.toString(),
                     'id': id,
                   }).then((value) {
+                    Navigator.pop(context);
                     Utils().toastMessage('Post Added');
                     setState(() {
                       loading = false;
