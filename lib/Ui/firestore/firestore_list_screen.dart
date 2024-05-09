@@ -1,11 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase/Ui/firestore/add_firestore_data.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/Ui/auth/login_screen.dart';
-import 'package:firebase/Ui/posts/add_posts.dart';
 import 'package:firebase/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 
 class FirestoreScreen extends StatefulWidget {
   const FirestoreScreen({super.key});
@@ -18,6 +16,8 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
   final auth = FirebaseAuth.instance;
 
   final editController = TextEditingController();
+
+  final firestore = FirebaseFirestore.instance.collection('users').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +52,26 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
           SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Hello'),
-                  );
-                }),
-          )
+          StreamBuilder<QuerySnapshot>(
+              stream: firestore,
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting)
+                  return Center(child: CircularProgressIndicator());
+
+                if (snapshot.hasError) return Text('error');
+
+                return Expanded(
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                              snapshot.data!.docs[index]['title'].toString()),
+                        );
+                      }),
+                );
+              }),
         ],
       ),
       floatingActionButton: FloatingActionButton(
