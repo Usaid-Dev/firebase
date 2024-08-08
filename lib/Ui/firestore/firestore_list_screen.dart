@@ -49,7 +49,7 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           StreamBuilder<QuerySnapshot>(
@@ -57,9 +57,9 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting)
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
 
-                if (snapshot.hasError) return Text('error');
+                if (snapshot.hasError) return const Text('error');
 
                 return Expanded(
                   child: ListView.builder(
@@ -94,11 +94,11 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Update'),
+            title: const Text('Update'),
             content: Container(
               child: TextField(
                 controller: editController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Edit',
                 ),
               ),
@@ -108,13 +108,13 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Update'),
+                child: const Text('Update'),
               ),
             ],
           );
