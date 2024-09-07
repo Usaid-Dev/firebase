@@ -41,7 +41,10 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
             TextFormField(
               controller: phoneNumberController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(hintText: '+92 331 8712375'),
+              decoration: const InputDecoration(
+                hintText: '+92 331 8712375',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(
               height: 80,

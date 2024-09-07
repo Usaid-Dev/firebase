@@ -1,5 +1,6 @@
 import 'package:firebase/Ui/auth/login_with_phone_number.dart';
 import 'package:firebase/Ui/auth/signup_screen.dart';
+import 'package:firebase/Ui/forgot_password.dart';
 import 'package:firebase/utils/utils.dart';
 import 'package:firebase/widgets/round_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.emailAddress,
                     controller: emailController,
                     decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
                       hintText: 'Email',
                       prefixIcon: Icon(
                         Icons.email,
@@ -108,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                     obscureText: true,
                     decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
                       hintText: 'Password',
                       prefixIcon: Icon(
                         Icons.lock_open,
@@ -135,8 +138,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
             ),
-            const SizedBox(
-              height: 30,
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ForgotPassword(),
+                    ),
+                  );
+                },
+                child: const Text('Forgot Password?'),
+              ),
             ),
             InkWell(
               onTap: () {
@@ -159,9 +173,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text('Login with phone number'),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

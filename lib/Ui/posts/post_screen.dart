@@ -52,7 +52,7 @@ class _PostScreenState extends State<PostScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Padding(
@@ -88,7 +88,7 @@ class _PostScreenState extends State<PostScreen> {
                         snapshot.child('id').value.toString(),
                       ),
                       trailing: PopupMenuButton(
-                        icon: Icon(Icons.more_vert),
+                        icon: const Icon(Icons.more_vert),
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             child: ListTile(
@@ -97,8 +97,8 @@ class _PostScreenState extends State<PostScreen> {
                                 shoyMyDialog(title,
                                     snapshot.child('id').value.toString());
                               },
-                              leading: Icon(Icons.edit),
-                              title: Text('Edit'),
+                              leading: const Icon(Icons.edit),
+                              title: const Text('Edit'),
                             ),
                           ),
                           PopupMenuItem(
@@ -110,8 +110,8 @@ class _PostScreenState extends State<PostScreen> {
                                         snapshot.child('id').value.toString())
                                     .remove();
                               },
-                              leading: Icon(Icons.delete),
-                              title: Text('Delete'),
+                              leading: const Icon(Icons.delete),
+                              title: const Text('Delete'),
                             ),
                           ),
                         ],
@@ -155,11 +155,11 @@ class _PostScreenState extends State<PostScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Update'),
+            title: const Text('Update'),
             content: Container(
               child: TextField(
                 controller: editController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Edit',
                 ),
               ),
@@ -169,7 +169,7 @@ class _PostScreenState extends State<PostScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () {
@@ -182,7 +182,7 @@ class _PostScreenState extends State<PostScreen> {
                     Utils().toastMessage(error.toString());
                   });
                 },
-                child: Text('Update'),
+                child: const Text('Update'),
               ),
             ],
           );

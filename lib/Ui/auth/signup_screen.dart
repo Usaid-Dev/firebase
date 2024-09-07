@@ -78,6 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     keyboardType: TextInputType.emailAddress,
                     controller: emailController,
                     decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
                       hintText: 'Email',
                       prefixIcon: Icon(
                         Icons.email,
@@ -107,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: passwordController,
                     obscureText: true,
                     decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
                       hintText: 'Password',
                       prefixIcon: Icon(
                         Icons.lock_open,
